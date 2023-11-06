@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        .container-card {
+            text-align: center;
+            font-family: Arial;
+        }
+    </style>
+</head>
+<body>
+    <div class="row" id="list"></div>
+
+    <script>
+        const list = document.getElementById("list");
+
+// Use the fetch API to retrieve the data from the provided URL
+fetch("https://pokeapi.co/api/v2/pokemon?offset=0&limit=5")
+    .then(response => response.json())
+    .then(data => {
+        data.results.forEach((nama, index) => {
+            const card = document.createElement("div");
+            card.className = "col-xl-3 col-md-6 mb-6";
+            card.innerHTML = `
+            <div class="container-card">
+         <div class="card border-primary mb-3">
+          <div class="card-body">
+            <p class="card-text fs-4">${nama.name}</p>
+            <a href="${nama.url}" target="_blank" class="btn btn-primary">Detail</a>
+          </div>
+        </div>
+        </div>
+            `;
+            list.appendChild(card);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching data: " + error);
+            });
+    </script>
+
+
+</body>
+</html>
